@@ -5,11 +5,11 @@ import java.util.Comparator;
  **/
 public class BinarySearchTree<T extends Comparable<T>> implements Comparator<T> {
 
-    private Node<T> root;
+    private Node root;
 
     public void insert(T data) {
         if(root == null) {
-            root = new Node<T>(data);
+            root = new Node(data);
             return;
         } insertThis(data, root);
     }
@@ -38,13 +38,13 @@ public class BinarySearchTree<T extends Comparable<T>> implements Comparator<T> 
         return a.compareTo(b);
     }
 
-    public class Node<T> {
+    public class Node {
 
         private T data;
 
-        private Node<T> left;
+        private Node left;
 
-        private Node<T> right;
+        private Node right;
 
         public Node(T data) {
             this.data = data;
