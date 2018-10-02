@@ -15,19 +15,50 @@ public class BinarySearchTree<T extends Comparable<T>> implements Comparator<T> 
     }
 
     public void displayInOrder() {
-
+        inorder(root);
     }
 
-    private void insertThis(T data, Node<T> currentNode) {
+    public void displayAntiClockLeafs() {
+        printNode(root);
+        anticlock(root);
+    }
+
+    private void anticlock(Node currentNode) {
+        if(currentNode == null) {
+            return;
+        }
+
+        anticlock(currentNode.left);
+        if(currentNode.left == null && currentNode.right == null) {
+            printNode(currentNode);
+            return;
+        }
+        anticlock(currentNode.right);
+    }
+
+    private void inorder(Node currentNode) {
+        if(currentNode == null) {
+            return;
+        }
+        inorder(currentNode.left);
+        printNode(currentNode);
+        inorder(currentNode.right);
+    }
+
+    private void printNode(Node node) {
+        System.out.println(node.data);
+    }
+
+    private void insertThis(T data, Node currentNode) {
         if(compare(currentNode.data, data) == 1) {
             if(currentNode.left == null) {
-                currentNode.left = new Node<>(data);
+                currentNode.left = new Node(data);
                 return;
             } insertThis(data, currentNode.left);
         }
         if(compare(currentNode.data, data) == 0) {
             if (currentNode.right == null) {
-                currentNode.right = new Node<>(data);
+                currentNode.right = new Node(data);
                 return;
             } insertThis(data, currentNode.right);
         }
@@ -58,19 +89,19 @@ public class BinarySearchTree<T extends Comparable<T>> implements Comparator<T> 
             this.data = data;
         }
 
-        public Node<T> getLeft() {
+        public Node getLeft() {
             return left;
         }
 
-        public void setLeft(Node<T> left) {
+        public void setLeft(Node left) {
             this.left = left;
         }
 
-        public Node<T> getRight() {
+        public Node getRight() {
             return right;
         }
 
-        public void setRight(Node<T> right) {
+        public void setRight(Node right) {
             this.right = right;
         }
 
