@@ -18,22 +18,17 @@ public class BinarySearchTree<T extends Comparable<T>> implements Comparator<T> 
         inorder(root);
     }
 
-    public void displayAntiClockLeafs() {
+    public void displayAntiClock() {
         printNode(root);
-        anticlock(root);
+        leftWingTopDown(root);
     }
 
-    private void anticlock(Node currentNode) {
+    private void leftWingTopDown(Node currentNode) {
         if(currentNode == null) {
             return;
         }
-
-        anticlock(currentNode.left);
-        if(currentNode.left == null && currentNode.right == null) {
-            printNode(currentNode);
-            return;
-        }
-        anticlock(currentNode.right);
+        printNode(currentNode);
+        leftWingTopDown(currentNode.left);
     }
 
     private void inorder(Node currentNode) {

@@ -11,6 +11,13 @@ import static org.junit.Assert.*;
 public class LinkedListTest {
 
     @Test
+    public void test() {
+        Integer i1 = 20;
+        Integer i2 = 20;
+        System.out.println(i1.equals(i2));
+    }
+
+    @Test
     public void isCyclic() {
         LinkedList<Integer> list = new LinkedList<Integer>();
         LinkedList.Node cyclic = new LinkedList.Node<Integer>(111);
