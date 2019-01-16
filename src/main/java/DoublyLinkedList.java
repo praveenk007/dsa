@@ -1,28 +1,24 @@
 /**
  * @author praveenkamath
  **/
-public class LinkedList<T> {
+public class DoublyLinkedList<T> {
 
-    private Node<T> head;
+    private DoublyLinkedList.Node<T> head;
 
-    private Node<T> start;
-
-    private Node<T> end;
+    private DoublyLinkedList.Node<T> end;
 
     private int size;
 
-    public LinkedList() {
+    public DoublyLinkedList() {
         this.head = null;
-        this.start = null;
         this.end = null;
     }
 
     public void addAtFirst(T data) {
-        Node node = new Node(data);
+        DoublyLinkedList.Node node = new DoublyLinkedList.Node(data);
         if(head == null) {
             this.head   = node;
             this.end    = node;
-            this.start  = node;
             return;
         }
         node.setNext(this.head);
@@ -35,13 +31,14 @@ public class LinkedList<T> {
             addAtFirst(data);
             return;
         }
-        Node node = new Node(data);
+        DoublyLinkedList.Node node = new DoublyLinkedList.Node(data);
         this.end.setNext(node);
+        node.setPrevious(this.end);
         this.end = node;
         this.size++;
     }
 
-    public void addAtEnd(Node<T> node) {
+    public void addAtEnd(DoublyLinkedList.Node<T> node) {
         if(node == null) {
             return;
         }
@@ -50,6 +47,7 @@ public class LinkedList<T> {
             return;
         }
         this.end.setNext(node);
+        node.setPrevious(this.end);
         this.end = node;
         this.size++;
     }
@@ -58,8 +56,8 @@ public class LinkedList<T> {
         if(this.head == null || this.end == null) {
             return false;
         }
-        Node slow = this.head;
-        Node fast = this.head;
+        DoublyLinkedList.Node slow = this.head;
+        DoublyLinkedList.Node fast = this.head;
         while(slow != null && fast != null && slow.next != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -81,7 +79,7 @@ public class LinkedList<T> {
 
     public void displayLinkedList() {
         System.out.print("Displaying LinkedList [first--->last]: ");
-        Node<T> tempDisplay = head; // start at the beginning of linkedList
+        DoublyLinkedList.Node<T> tempDisplay = head; // start at the beginning of linkedList
         while (tempDisplay != null){ // Executes until we don't find end of list.
             tempDisplay.displayNode();
             tempDisplay = tempDisplay.next; // move to next Node
@@ -90,27 +88,19 @@ public class LinkedList<T> {
 
     }
 
-    public Node<T> getHead() {
+    public DoublyLinkedList.Node<T> getHead() {
         return head;
     }
 
-    public void setHead(Node<T> head) {
+    public void setHead(DoublyLinkedList.Node<T> head) {
         this.head = head;
     }
 
-    public Node<T> getStart() {
-        return start;
-    }
-
-    public void setStart(Node<T> start) {
-        this.start = start;
-    }
-
-    public Node<T> getEnd() {
+    public DoublyLinkedList.Node<T> getEnd() {
         return end;
     }
 
-    public void setEnd(Node<T> end) {
+    public void setEnd(DoublyLinkedList.Node<T> end) {
         this.end = end;
     }
 
@@ -124,7 +114,17 @@ public class LinkedList<T> {
 
     public static class Node<T> {
 
-        private Node next;
+        private DoublyLinkedList.Node next;
+
+        public Node getPrevious() {
+            return previous;
+        }
+
+        public void setPrevious(Node previous) {
+            this.previous = previous;
+        }
+
+        private DoublyLinkedList.Node previous;
 
         private T data;
 
@@ -138,16 +138,20 @@ public class LinkedList<T> {
             this.data = data;
         }
 
-        public Node next() {
+        public DoublyLinkedList.Node next() {
             return next;
         }
 
-        public void setNext(Node next) {
+        public void setNext(DoublyLinkedList.Node next) {
             this.next = next;
         }
 
         public void displayNode() {
-            System.out.println("data :: "+this.data);
+            if(this.getPrevious() == null) {
+                System.out.println("data :: "+this.data);
+            } else {
+                System.out.println("data :: "+this.data + ", previous :: "+this.getPrevious().getData());
+            }
         }
 
         @Override

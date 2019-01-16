@@ -32,6 +32,17 @@ public class LinkedListTest {
     }
 
     @Test
+    public void testLl() {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.addAtEnd(new LinkedList.Node<Integer>(1));
+        list.addAtEnd(new LinkedList.Node<Integer>(2));
+        list.addAtEnd(new LinkedList.Node<Integer>(3));
+        list.addAtEnd(new LinkedList.Node<Integer>(4));
+        list.addAtEnd(new LinkedList.Node<Integer>(5));
+        list.displayLinkedList();
+    }
+
+    @Test
     public void isNotCyclic() {
         LinkedList<Integer> list = new LinkedList<Integer>();
         list.addAtEnd(new LinkedList.Node<Integer>(1));
