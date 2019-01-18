@@ -17,8 +17,4 @@ public class ReverseInteger {
         remainder = (remainder * 10 + quotient % 10);
         return recursiveFn(quotient, remainder);
     }
-
-    public static void main(String[] args) {
-        System.out.println(new ReverseInteger().reverseInt(20));
-    }
 }
