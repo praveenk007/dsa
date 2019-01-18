@@ -1,6 +1,7 @@
-import org.junit.Test;
+package com.pk.algos;
 
-import java.util.Comparator;
+import com.pk.algos.BinarySearchTree;
+import org.junit.Test;
 
 /**
  * @author praveenkamath

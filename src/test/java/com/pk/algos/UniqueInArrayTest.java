@@ -1,3 +1,6 @@
+package com.pk.algos;
+
+import com.pk.algos.UniqueInArray;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

@@ -1,24 +1,30 @@
+package com.pk.algos;
+
 /**
  * @author praveenkamath
  **/
-public class DoublyLinkedList<T> {
+public class LinkedList<T> {
 
-    private DoublyLinkedList.Node<T> head;
+    private Node<T> head;
 
-    private DoublyLinkedList.Node<T> end;
+    private Node<T> start;
+
+    private Node<T> end;
 
     private int size;
 
-    public DoublyLinkedList() {
+    public LinkedList() {
         this.head = null;
+        this.start = null;
         this.end = null;
     }
 
     public void addAtFirst(T data) {
-        DoublyLinkedList.Node node = new DoublyLinkedList.Node(data);
+        Node node = new Node(data);
         if(head == null) {
             this.head   = node;
             this.end    = node;
+            this.start  = node;
             return;
         }
         node.setNext(this.head);
@@ -31,14 +37,13 @@ public class DoublyLinkedList<T> {
             addAtFirst(data);
             return;
         }
-        DoublyLinkedList.Node node = new DoublyLinkedList.Node(data);
+        Node node = new Node(data);
         this.end.setNext(node);
-        node.setPrevious(this.end);
         this.end = node;
         this.size++;
     }
 
-    public void addAtEnd(DoublyLinkedList.Node<T> node) {
+    public void addAtEnd(Node<T> node) {
         if(node == null) {
             return;
         }
@@ -47,7 +52,6 @@ public class DoublyLinkedList<T> {
             return;
         }
         this.end.setNext(node);
-        node.setPrevious(this.end);
         this.end = node;
         this.size++;
     }
@@ -56,8 +60,8 @@ public class DoublyLinkedList<T> {
         if(this.head == null || this.end == null) {
             return false;
         }
-        DoublyLinkedList.Node slow = this.head;
-        DoublyLinkedList.Node fast = this.head;
+        Node slow = this.head;
+        Node fast = this.head;
         while(slow != null && fast != null && slow.next != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -71,15 +75,15 @@ public class DoublyLinkedList<T> {
 
     @Override
     public String toString() {
-        return "LinkedList{" +
+        return "com.pk.algos.LinkedList{" +
                 "head=" + head +
                 ", end=" + end +
                 '}';
     }
 
     public void displayLinkedList() {
-        System.out.print("Displaying LinkedList [first--->last]: ");
-        DoublyLinkedList.Node<T> tempDisplay = head; // start at the beginning of linkedList
+        System.out.print("Displaying com.pk.algos.LinkedList [first--->last]: ");
+        Node<T> tempDisplay = head; // start at the beginning of linkedList
         while (tempDisplay != null){ // Executes until we don't find end of list.
             tempDisplay.displayNode();
             tempDisplay = tempDisplay.next; // move to next Node
@@ -88,19 +92,27 @@ public class DoublyLinkedList<T> {
 
     }
 
-    public DoublyLinkedList.Node<T> getHead() {
+    public Node<T> getHead() {
         return head;
     }
 
-    public void setHead(DoublyLinkedList.Node<T> head) {
+    public void setHead(Node<T> head) {
         this.head = head;
     }
 
-    public DoublyLinkedList.Node<T> getEnd() {
+    public Node<T> getStart() {
+        return start;
+    }
+
+    public void setStart(Node<T> start) {
+        this.start = start;
+    }
+
+    public Node<T> getEnd() {
         return end;
     }
 
-    public void setEnd(DoublyLinkedList.Node<T> end) {
+    public void setEnd(Node<T> end) {
         this.end = end;
     }
 
@@ -114,17 +126,7 @@ public class DoublyLinkedList<T> {
 
     public static class Node<T> {
 
-        private DoublyLinkedList.Node next;
-
-        public Node getPrevious() {
-            return previous;
-        }
-
-        public void setPrevious(Node previous) {
-            this.previous = previous;
-        }
-
-        private DoublyLinkedList.Node previous;
+        private Node next;
 
         private T data;
 
@@ -138,20 +140,16 @@ public class DoublyLinkedList<T> {
             this.data = data;
         }
 
-        public DoublyLinkedList.Node next() {
+        public Node next() {
             return next;
         }
 
-        public void setNext(DoublyLinkedList.Node next) {
+        public void setNext(Node next) {
             this.next = next;
         }
 
         public void displayNode() {
-            if(this.getPrevious() == null) {
-                System.out.println("data :: "+this.data);
-            } else {
-                System.out.println("data :: "+this.data + ", previous :: "+this.getPrevious().getData());
-            }
+            System.out.println("data :: "+this.data);
         }
 
         @Override

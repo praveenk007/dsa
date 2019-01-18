@@ -1,3 +1,4 @@
+package com.pk.algos;
 
 /**
  * Retrieves max sum ofsub-array from an array
