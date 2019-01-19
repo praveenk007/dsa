@@ -1,11 +1,10 @@
 package com.pk.algos;
 
-import com.pk.algos.DoublyLinkedList;
-import com.pk.algos.LinkedListStringPalindrome;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static org.junit.Assert.*;
+
 /**
  * @author praveenkamath
  **/
