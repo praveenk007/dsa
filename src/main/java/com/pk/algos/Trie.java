@@ -22,16 +22,21 @@ public class Trie {
         addChar(0, word, root);
     }
 
-    public List<String> getWordsStartingWith(final String start) {
+    public List<String> startsWith(final String start) {
         List<String> words = new ArrayList<>();
         TrieNode child = getChildNode(0, start, root);
         if(child == null) {
             return words;
-        } return getAllWords(child, start, words);
+        } return getAllWords(child, start.substring(0, start.length()-1), words, null);
+    }
+
+    public List<String> contains(final String str) {
+        List<String> words = new ArrayList<>();
+        return getAllWords(root, null, words, str);
     }
 
     private TrieNode getChildNode(int index, final String start, TrieNode node) {
-        if(node == null || node.getChild() == null || index == start.length() - 1) {
+        if(node == null || node.getChild() == null || index > start.length() - 1) {
             return node;
         }
         TrieNode child = node.getChild().get(start.charAt(index));
@@ -39,8 +44,7 @@ public class Trie {
     }
 
     private void addChar(int index, String word, TrieNode node) {
-        if(word == null || word.isEmpty() || index == word.length()) {
-            //End of word
+        if(word == null || word.isEmpty() || index == word.length()) { //End of word
             return;
         }
         Map<Character, TrieNode> childs = node.getChild();
@@ -60,10 +64,10 @@ public class Trie {
     }
 
     public List<String> getAllWords() {
-        return getAllWords(root, null, null);
+        return getAllWords(root, null, null, null);
     }
 
-    private List<String> getAllWords(TrieNode node, String str, List<String> words) {
+    private List<String> getAllWords(TrieNode node, String str, List<String> words, String strContains) {
         if(node == null) {
             return words;
         }
@@ -73,11 +77,13 @@ public class Trie {
             str = str + node.getVaue();
         }
         if(node.isCompleteWord()) {
-            words.add(str);
+            if(strContains == null || str.contains(strContains)) {
+                words.add(str);
+            }
         }
         if(node.getChild() != null) {
             for (Map.Entry<Character, TrieNode> entry : node.getChild().entrySet()) {
-                getAllWords(entry.getValue(), str, words);
+                getAllWords(entry.getValue(), str, words, strContains);
             }
         } return words;
     }
