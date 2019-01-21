@@ -1,7 +1,6 @@
 package com.pk.algos;
 
 import com.pk.algos.models.trie.TrieNode;
-import com.sun.org.apache.xml.internal.serialize.LineSeparator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,22 @@ public class Trie {
 
     public void addWord(final String word) {
         addChar(0, word, root);
+    }
+
+    public List<String> getWordsStartingWith(final String start) {
+        List<String> words = new ArrayList<>();
+        TrieNode child = getChildNode(0, start, root);
+        if(child == null) {
+            return words;
+        } return getAllWords(child, start, words);
+    }
+
+    private TrieNode getChildNode(int index, final String start, TrieNode node) {
+        if(node == null || node.getChild() == null || index == start.length() - 1) {
+            return node;
+        }
+        TrieNode child = node.getChild().get(start.charAt(index));
+        return getChildNode(index+1, start, child);
     }
 
     private void addChar(int index, String word, TrieNode node) {
@@ -52,24 +67,30 @@ public class Trie {
         if(node == null) {
             return words;
         }
-        if(str == null) {
-            str = "";
-        }
-        if(words == null) {
-            words = new ArrayList<>();
-        }
+        str = initStr(str);
+        words = initWords(words);
         if(node.getVaue() != null) {
             str = str + node.getVaue();
         }
         if(node.isCompleteWord()) {
             words.add(str);
         }
-        if(node.getChild() == null) {
-            return words;
-        }
-        for (Map.Entry<Character, TrieNode> entry : node.getChild().entrySet()) {
-            getAllWords(entry.getValue(), str, words);
-        }
-        return words;
+        if(node.getChild() != null) {
+            for (Map.Entry<Character, TrieNode> entry : node.getChild().entrySet()) {
+                getAllWords(entry.getValue(), str, words);
+            }
+        } return words;
+    }
+
+    private String initStr(String str) {
+        if(str == null) {
+            str = "";
+        } return str;
+    }
+
+    private List<String> initWords(List<String> words) {
+        if(words == null) {
+            words = new ArrayList<>();
+        } return words;
     }
 }

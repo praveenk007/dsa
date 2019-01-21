@@ -46,4 +46,16 @@ public class TrieTest {
                 "hatter"
         )));
     }
+
+    @Test
+    public void searchPass() {
+        Trie trie = new Trie();
+        trie.addWord("hattrick");
+        trie.addWord("hat");
+        trie.addWord("hates");
+        trie.addWord("hater");
+        trie.addWord("men");
+        trie.addWord("mess");
+        System.out.println(trie.getWordsStartingWith("hat"));
+    }
 }
