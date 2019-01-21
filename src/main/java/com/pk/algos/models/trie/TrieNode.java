@@ -1,6 +1,7 @@
 package com.pk.algos.models.trie;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Holds a single trie child
@@ -11,7 +12,7 @@ public class TrieNode {
 
     private Character                   vaue;
 
-    private Map<Character, TrieNode> child;
+    private Map<Character, TrieNode>    child;
 
     private boolean                     isCompleteWord;
 
@@ -46,5 +47,22 @@ public class TrieNode {
 
     public void setCompleteWord(boolean completeWord) {
         isCompleteWord = completeWord;
+    }
+
+    @Override
+    public String toString() {
+
+        return "TrieNode{" +
+                "vaue=" + vaue +
+                ", child=" + getChildString() +
+                ", isCompleteWord=" + isCompleteWord +
+                '}';
+    }
+
+    private String getChildString() {
+        if(child == null || child.isEmpty()) {
+            return null;
+        }
+        return child.entrySet().stream().map(entry -> entry.getKey()).collect(Collectors.toList()).toString();
     }
 }
