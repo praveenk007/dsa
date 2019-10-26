@@ -11,10 +11,11 @@ public class MatrixPathFinder {
     private static List<Adjacent> visited = new ArrayList<>();
 
     public int processor(int[][] arr, int startRow, int startCol, int endRow, int endCol) {
-        return calc(arr, startRow, startCol, endRow, endCol, 0);
+        return calc(arr, startRow, startCol, endRow, endCol);
     }
 
-    private int calc(int[][] arr, int startRow, int startCol, int endRow, int endCol, int total) {
+    private int calc(int[][] arr, int startRow, int startCol, int endRow, int endCol) {
+        int count = 0;
         if(startRow == endRow && startCol == endCol) {
             return 1;
         }
@@ -25,10 +26,10 @@ public class MatrixPathFinder {
         final Adjacent current = new Adjacent(startRow, startCol);
         visited.add(current);
         for(Adjacent adjacent: adjacents) {
-            total = total + processor(arr, adjacent.getRowNum(), adjacent.getColNum(), endRow, endCol);
+            count = count + processor(arr, adjacent.getRowNum(), adjacent.getColNum(), endRow, endCol);
             visited.remove(adjacent);
         }
-        return total;
+        return count;
     }
 
     private List<Adjacent> findAdjacents(int[][] arr, int startRow, int startCol) {
