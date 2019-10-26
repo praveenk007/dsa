@@ -10,31 +10,11 @@ public class MatrixPathFinder {
 
     private static List<Adjacent> visited = new ArrayList<>();
 
-    public static void main(String[] args) {
-        final int[][] arr = {
-                {0,1,1,0},
-                {0,1,1,1},
-                {0,0,1,1},
-                {0,0,1,1}
-        };
-        int startRow = 0;
-        int startCol = 1;
-        int endRow   = 3;
-        int endCol   = 2;
-        //op expected - 4
-        final MatrixPathFinder pathFinder = new MatrixPathFinder();
-        int total  = pathFinder.processor(arr, startRow, startCol, endRow, endCol);
-        System.out.println("op: " + total);
-    }
-
-    private int processor(int[][] arr, int startRow, int startCol, int endRow, int endCol) {
+    public int processor(int[][] arr, int startRow, int startCol, int endRow, int endCol) {
         return calc(arr, startRow, startCol, endRow, endCol, 0);
     }
 
     private int calc(int[][] arr, int startRow, int startCol, int endRow, int endCol, int total) {
-        if(arr[startRow][startCol] == 0) {
-            return 0;
-        }
         if(startRow == endRow && startCol == endCol) {
             return 1;
         }
@@ -58,18 +38,60 @@ public class MatrixPathFinder {
         final Adjacent left = new Adjacent(startRow, startCol-1);
         final Adjacent above = new Adjacent(startRow-1, startCol);
         final Adjacent below = new Adjacent(startRow+1, startCol);
-        if(startCol + 1 < arr[startRow].length && !visited.contains(right)) {
+        if(startCol + 1 < arr[startRow].length && arr[right.getRowNum()][right.getColNum()] == 1 && !visited.contains(right)) {
             adjacents.add(right);
         }
-        if(startRow - 1 >= 0 && !visited.contains(above)) {
+        if(startRow - 1 >= 0 && arr[above.getRowNum()][above.getColNum()] == 1 && !visited.contains(above)) {
             adjacents.add(above);
         }
-        if(startRow + 1 < arr[startCol].length && !visited.contains(below)) {
+        if(startRow + 1 < arr[startCol].length && arr[below.getRowNum()][below.getColNum()] == 1 && !visited.contains(below)) {
             adjacents.add(below);
         }
-        if(startCol - 1 >= 0 && !visited.contains(left)) {
+        if(startCol - 1 >= 0 && arr[left.getRowNum()][left.getColNum()] == 1 && !visited.contains(left)) {
             adjacents.add(left);
         }
         return adjacents;
     }
+
+    class Adjacent {
+
+        public Adjacent(int rowNum, int colNum) {
+            this.rowNum = rowNum;
+            this.colNum = colNum;
+        }
+
+        @Override
+        public int hashCode() {
+            return getRowNum() + getColNum();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(obj == null) return false;
+            return ((Adjacent) obj).getColNum() == this.getColNum() && ((Adjacent) obj).getRowNum() == this.getRowNum();
+        }
+
+        private int rowNum;
+
+        private int colNum;
+
+        public int getRowNum() {
+            return rowNum;
+        }
+
+        public void setRowNum(int rowNum) {
+            this.rowNum = rowNum;
+        }
+
+        public int getColNum() {
+            return colNum;
+        }
+
+        public void setColNum(int colNum) {
+            this.colNum = colNum;
+        }
+    }
+
+
 }
+
