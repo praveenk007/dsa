@@ -1,6 +1,5 @@
 package com.pk.algos;
 
-import com.pk.algos.BinarySearchTree;
 import org.junit.Test;
 
 /**
